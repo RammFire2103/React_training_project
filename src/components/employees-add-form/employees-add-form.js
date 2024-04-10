@@ -17,8 +17,16 @@ class EmployeesAddForm extends Component {
         })
     }
 
+    clearInput = () => {
+        this.setState({
+            name: '',
+            salary: 0
+        })
+    }
+
     render() {
-        const {name, salary} = this.props;
+        const {onAdd} = this.props;
+        const {name, salary} = this.state;
 
         return (
             <div className="app-add-form">
@@ -38,8 +46,12 @@ class EmployeesAddForm extends Component {
                         value = {salary}
                         onChange = {this.onValueChange}/>
     
-                    <button type="submit"
-                            className="btn btn-outline-light">Добавить</button>
+                    <button type="button"
+                            className="btn btn-outline-light"
+                            onClick={() => {
+                                name.length !== 0 ? onAdd(name,  salary) : console.log('Заполните все поля');
+                                this.clearInput();
+                            }}>Добавить</button>
                 </form>
             </div>
         )

@@ -29,6 +29,20 @@ class App extends Component{
         });
     }
 
+    addItem = (name, salary) => {
+        this.setState(({data}) => {
+            const newState = data.slice();
+            if (data.length === 0){
+                newState.push({name: name, salary: salary, increase: false, id: 1});
+            } else {
+                newState.push({name: name, salary: salary, increase: false, id: data[data.length - 1].id + 1});
+            }
+            return {
+                data: newState
+            }
+        });
+    }
+
     render() {
         
     
@@ -44,7 +58,7 @@ class App extends Component{
                 <EmployeesList 
                     data={this.state.data}
                     onDelete={this.deleteItem}/>
-                <EmployeesAddForm/>
+                <EmployeesAddForm onAdd={this.addItem}/>
             </div>
         );
     }
